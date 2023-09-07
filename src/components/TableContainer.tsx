@@ -64,7 +64,8 @@ export default function Table({ columns, data }: TableProps) {
   // Function to get cell value
   const getCellValue = (cell: any) => {
     // setCellValue(cell.value)
-    console.log("Neeraj", cell.value);
+    alert("Popup inprogress...." + cell.value)
+   
   }
 
   return (
