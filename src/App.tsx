@@ -7,13 +7,13 @@ import "./App.css";
 
 //In typescript we have to defined every column data type what type that is
 interface Show {
-  name: string;
-  type: string;
-  language: string;
-  officialSite: string;
-  rating: {
-    average: number;
-  };
+  frst_nm: string;
+  // type: string;
+  // language: string;
+  // officialSite: string;
+  // rating: {
+  //   average: number;
+  // };
 }
 
 function App() {
@@ -24,35 +24,35 @@ function App() {
   const columns = [
     {
       name: 'Name',
-      selector: (row: any) => row.show.name,
+      selector: (row: any) => row.frst_nm,
       sortable: true,
     },
-    {
-      name: 'Type',
-      selector: (row: any) => row.show.type,
-      sortable: true,
-      cell: (row: { show: { type: string } }) => (
-        <div
-          onClick={() => handleCellClick(row, 'show.type')}
-          style={{ cursor: 'pointer', textDecoration: 'underline' }}
-        >
-          {row.show.type}
-        </div>
-      ),
-    },
-    {
-      name: 'Language',
-      selector: (row: any) => row.show.language,
-      sortable: true,
-    },
-    {
-      name: 'Official Site',
-      selector: (row: any) => row.show.officialSite,
-    },
-    {
-      name: 'Rating',
-      selector: (row: any) => row.show.rating.average,
-    },
+    // {
+    //   name: 'Type',
+    //   selector: (row: any) => row.show.type,
+    //   sortable: true,
+    //   cell: (row: { show: { type: string } }) => (
+    //     <div
+    //       onClick={() => handleCellClick(row, 'show.type')}
+    //       style={{ cursor: 'pointer', textDecoration: 'underline' }}
+    //     >
+    //       {row.show.type}
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   name: 'Language',
+    //   selector: (row: any) => row.show.language,
+    //   sortable: true,
+    // },
+    // {
+    //   name: 'Official Site',
+    //   selector: (row: any) => row.show.officialSite,
+    // },
+    // {
+    //   name: 'Rating',
+    //   selector: (row: any) => row.show.rating.average,
+    // },
   ];
   // state needed
   const [data, setData] = useState<any[]>([]);
@@ -92,8 +92,28 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<Show[]>('http://api.tvmaze.com/search/shows?q=animals');
-      setData(response.data);
+      const sample_response = {
+        "enterprise_customer_id": "DEFAULT",
+        "src_sys_cde": "CIF  ",
+        "src_sys_cust_nbr": "301722990",
+        "cust_kind_cde": "INDIV",
+        "brth_dt": "2013-05-29",
+        "sex_cde": "M",
+        "gndr_cde": null,
+        "frst_nm": "Irving",
+        "mddl_nm": null,
+        "lst_nm": "Boat",
+        "orzn_nm": null,
+        "first_name_search": null,
+        "last_name_search": null,
+        "match_result": null,
+        "match_date_time": null,
+        "last_updated_date_time": null
+      }
+      //const response = await axios.get<Show[]>('http://api.tvmaze.com/search/shows?q=animals');
+
+
+      setData([sample_response]);
 
     } catch (err: any) {
       const errorMessage = "Error: " + err.message;
