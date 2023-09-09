@@ -67,10 +67,28 @@ function App() {
     setIsOpen(true);
   };
 
-  // Fetching api 
+  // Initial Fetching dummy data api from  online DB and showing in table 
+  // You can download data using Your Api
   useEffect(() => {
     fetchData();
   }, []);
+
+
+// Fetching dummy data api from  online DB and showing in table using searchTerm
+// debouncing concept implemented
+// You can override with your DB
+  useEffect(() => {
+    const getData = setTimeout(() => {
+      if(searchTerm !== ""){
+        axios
+        .get(`http://api.tvmaze.com/search/shows?q=${searchTerm}`)
+        .then((response) => {
+          setData(response.data);
+        });
+      }   
+    }, 2000)
+    return () => clearTimeout(getData)
+  }, [searchTerm])
 
   const fetchData = async () => {
     try {
