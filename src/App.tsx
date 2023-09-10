@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Popup from 'reactjs-popup';
-import DataTable from 'react-data-table-component';
 import 'reactjs-popup/dist/index.css';
 import "./App.css";
+import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+
 
 //In typescript we have to defined every column data type what type that is
 interface Show {
@@ -17,92 +18,23 @@ interface Show {
   frst_nm: string;
   mddl_nm: string;
   lst_nm: string;
-  // type: string;
-  // language: string;
-  // officialSite: string;
-  // rating: {
-  //   average: number;
-  // };
 }
 
 function App() {
- /* <Expliantion> In our dummy api these type of key available you can check  by 
-  hitting this url http://api.tvmaze.com/search/shows?q=animals directly on browser
-  and parse response with any json parser online
-  </Explaintion> */
-  const columns = [
-    {
-      name: 'Enterprise Cust id',
-      selector: (row: any) => row.enterprise_customer_id,
-      sortable: true,
-    },
-    {
-      name: 'System code',
-      selector: (row: any) => row.src_sys_cde,
-      sortable: true,
-    },
-    {
-      name: 'Customer No.',
-      selector: (row: any) => row.src_sys_cust_nbr,
-      sortable: true,
-    },
-    {
-      name: 'Birthdate',
-      selector: (row: any) => row.brth_dt,
-      sortable: true,
-    },
-    {
-      name: 'Sex code',
-      selector: (row: any) => row.sex_cde,
-      sortable: true,
-    },
-    {
-      name: 'Gender',
-      selector: (row: any) => row.gndr_cde,
-      sortable: true,
-    },
-    {
-      name: 'First Name',
-      selector: (row: any) => row.frst_nm,
-      sortable: true,
-    },
-    {
-      name: 'Middle Name',
-      selector: (row: any) => row.mddl_nm,
-      sortable: true,
-    },
-    {
-      name: 'Last Name',
-      selector: (row: any) => row.lst_nm,
-      sortable: true,
-    },
-    // {
-    //   name: 'Type',
-    //   selector: (row: any) => row.show.type,
-    //   sortable: true,
-    //   cell: (row: { show: { type: string } }) => (
-    //     <div
-    //       onClick={() => handleCellClick(row, 'show.type')}
-    //       style={{ cursor: 'pointer', textDecoration: 'underline' }}
-    //     >
-    //       {row.show.type}
-    //     </div>
-    //   ),
-    // },
-    // {
-    //   name: 'Language',
-    //   selector: (row: any) => row.show.language,
-    //   sortable: true,
-    // },
-    // {
-    //   name: 'Official Site',
-    //   selector: (row: any) => row.show.officialSite,
-    // },
-    // {
-    //   name: 'Rating',
-    //   selector: (row: any) => row.show.rating.average,
-    // },
+  
+  const columns: GridColDef[] = [
+    { field: 'enterprise_customer_id', headerName: 'Enterprise Cust id', width: 150 },
+    { field: 'src_sys_cde', headerName: 'System code', width: 150 },
+    { field: 'src_sys_cust_nbr', headerName: 'Customer No.', width: 150 },
+    { field: 'cust_kind_cde', headerName: 'System code', width: 150 },
+    { field: 'brth_dt', headerName: 'Birthdate', width: 150 },
+    { field: 'sex_cde', headerName: 'Sex code', width: 150 },
+    { field: 'gndr_cde', headerName: 'Gender', width: 150 },
+    { field: 'frst_nm', headerName: 'First Name', width: 150 },
+    { field: 'mddl_nm', headerName: 'Middle Name', width: 150 },
+    { field: 'lst_nm', headerName: 'Last Name', width: 150 },
   ];
+ 
   // state needed
   const [data, setData] = useState<any[]>([]);
   const [rowData, setRowData] = useState<any>('');
@@ -146,6 +78,7 @@ function App() {
   const fetchData = async () => {
     try {
       const sample_response = {
+        "id": 1,
         "enterprise_customer_id": "DEFAULT",
         "src_sys_cde": "CIF  ",
         "src_sys_cust_nbr": "301722990",
@@ -188,6 +121,7 @@ function App() {
     if ((selectedDropdown !=="" && nativekey !== "") || (selectedDropdown !== "" && enterprise !== "")) {
       try {
         const sample_response = {
+          "id": 1,
           "enterprise_customer_id": "DEFAULT",
           "src_sys_cde": "CIF  ",
           "src_sys_cust_nbr": "301722990",
@@ -228,7 +162,6 @@ function App() {
      setSelectDropdown("");
      setData([]);
   }
-
 
   return (
     <div className="App">
@@ -281,18 +214,9 @@ function App() {
                   className="filter-text" 
                   placeholder="Search"/>
           </div>
-          <DataTable
-            columns={columns}
-            data={data}
-            highlightOnHover
-            pagination
-            paginationPerPage={5}
-            paginationRowsPerPageOptions={[5, 10, 15, 25, 50]}
-            paginationComponentOptions={{
-              rowsPerPageText: 'Records per page:',
-              rangeSeparatorText: 'out of',
-            }}
-          />
+        <div style={{ height: 300, width: '100%' }}>
+         <DataGrid rows={data} columns={columns} />
+        </div>
         <Popup open={isOpen} modal nested onClose={() => setIsOpen(false)}>
           {
             (
