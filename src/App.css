@@ -111,3 +111,7 @@ select, input {
   border: 1px solid #007e96;
 }
 
+.MuiTablePagination-selectLabel, .MuiTablePagination-displayedRows {
+  padding-top: 10px;
+}
+
