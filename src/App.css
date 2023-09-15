@@ -115,3 +115,7 @@ select, input {
   padding-top: 10px;
 }
 
+.MuiDataGrid-footerContainer {
+  display: none !important;
+}
+
