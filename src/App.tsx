@@ -215,7 +215,13 @@ function App() {
                   placeholder="Search"/>
           </div>
         <div style={{ height: 300, width: '100%' }}>
-         <DataGrid rows={data} columns={columns} />
+         <DataGrid 
+            rows={data} 
+            columns={columns} 
+            initialState={{
+              pagination: { paginationModel: { pageSize: 5 } },
+            }}
+            pageSizeOptions={[5, 10, 25]}/>
         </div>
         <Popup open={isOpen} modal nested onClose={() => setIsOpen(false)}>
           {
